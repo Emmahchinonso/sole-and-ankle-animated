@@ -1,24 +1,24 @@
 /* eslint-disable no-unused-vars */
-import React from 'react';
-import styled from 'styled-components/macro';
-import { DialogOverlay, DialogContent } from '@reach/dialog';
+import React from "react";
+import styled from "styled-components/macro";
+import { DialogOverlay, DialogContent } from "@reach/dialog";
 
-import { QUERIES, WEIGHTS } from '../../constants';
+import { QUERIES, WEIGHTS } from "../../constants";
 
-import UnstyledButton from '../UnstyledButton';
-import Icon from '../Icon';
-import VisuallyHidden from '../VisuallyHidden';
+import UnstyledButton from "../UnstyledButton";
+import Icon from "../Icon";
+import VisuallyHidden from "../VisuallyHidden";
 
 const MobileMenu = ({ isOpen, onDismiss }) => {
   return (
     <Overlay isOpen={isOpen} onDismiss={onDismiss}>
-      <Content aria-label="Menu">
+      <Content isOpen={isOpen} aria-label="Menu">
         <CloseButton onClick={onDismiss}>
           <Icon id="close" />
           <VisuallyHidden>Dismiss menu</VisuallyHidden>
         </CloseButton>
         <Filler />
-        <Nav>
+        <Nav isOpen={isOpen}>
           <NavLink href="/sale">Sale</NavLink>
           <NavLink href="/new">New&nbsp;Releases</NavLink>
           <NavLink href="/men">Men</NavLink>
@@ -26,7 +26,7 @@ const MobileMenu = ({ isOpen, onDismiss }) => {
           <NavLink href="/kids">Kids</NavLink>
           <NavLink href="/collections">Collections</NavLink>
         </Nav>
-        <Footer>
+        <Footer isOpen={isOpen}>
           <SubLink href="/terms">Terms and Conditions</SubLink>
           <SubLink href="/privacy">Privacy Policy</SubLink>
           <SubLink href="/contact">Contact Us</SubLink>
@@ -45,6 +45,13 @@ const Overlay = styled(DialogOverlay)`
   background: var(--color-backdrop);
   display: flex;
   justify-content: flex-end;
+  opacity: 0;
+  transition: opacity 5000ms;
+  ${(props) =>
+    props.isOpen &&
+    `
+    opacity: 1;
+  `}
 `;
 
 const Content = styled(DialogContent)`
@@ -54,6 +61,14 @@ const Content = styled(DialogContent)`
   padding: 24px 32px;
   display: flex;
   flex-direction: column;
+  transform: translateX(100%);
+  transition: transform 600ms;
+  transition-delay: 400ms;
+  ${(props) =>
+    props.isOpen &&
+    `
+    transform: translateX(0);
+  `}
 `;
 
 const CloseButton = styled(UnstyledButton)`

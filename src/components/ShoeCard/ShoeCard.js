@@ -119,7 +119,7 @@ const Link = styled.a`
 
   &:hover ${Flag} {
     @media (prefers-reduced-motion: no-preference) {
-      animation: ${shake} 300ms linear;
+      animation: ${shake} 600ms linear;
     }
   }
 `;
