@@ -71,10 +71,15 @@ const ImageWrapper = styled.div`
 
 const Image = styled.img`
   width: 100%;
+  display: block;
   border-radius: 16px 16px 4px 4px;
-  transform-origin: 50% 100%;
-  filter: grayscale(30%);
-  transition: transform 500ms, filter 500ms;
+  transform-origin: 50% 75%;
+  will-change: transform;
+  filter: brightness(90%);
+
+  @media (prefers-reduced-motion: no-preference) {
+    transition: transform 500ms, filter 500ms;
+  }
 `;
 
 const shake = keyframes`
@@ -111,14 +116,14 @@ const Link = styled.a`
   text-decoration: none;
   color: inherit;
 
-  &:hover ${Image} {
-    transform: scale(1.1);
-    transition: transform 250ms, filter 400ms;
-    filter: grayscale(0%);
-  }
+  @media (hover: hover) and (prefers-reduced-motion: no-preference) {
+    &:hover ${Image}, &:focus ${Image} {
+      transform: scale(1.1);
+      filter: brightness(100%);
+      transition: transform 250ms, filter 400ms;
+    }
 
-  &:hover ${Flag} {
-    @media (prefers-reduced-motion: no-preference) {
+    &:hover ${Flag}, &:focus ${Flag} {
       animation: ${shake} 600ms linear;
     }
   }

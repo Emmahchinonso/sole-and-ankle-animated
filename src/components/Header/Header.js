@@ -22,7 +22,7 @@ const Header = () => {
         <DesktopNav>
           <NavLink href="/sale">
             <PrimaryLink>Sale</PrimaryLink>
-            <SecondaryLink>Sale</SecondaryLink>
+            <SecondaryLink aria-hidden="true">Sale</SecondaryLink>
           </NavLink>
           <NavLink href="/new">
             <PrimaryLink>New&nbsp;Releases</PrimaryLink>
@@ -161,15 +161,19 @@ const NavLink = styled.a`
   }
 
   &:hover ${PrimaryLink} {
-    transform: translateY(-100%);
+    font-weight: bold;
+    transition: font-weight 200ms;
   }
 
-  &:hover ${SecondaryLink} {
-    transform: translateY(0);
-  }
+  @media (prefers-reduced-motion: no-preference) {
+    &:hover ${PrimaryLink} {
+      transform: translateY(-100%);
+      transition: transform 200ms;
+    }
 
-  &:hover ${PrimaryLink} {
-    transition: transform 200ms;
+    &:hover ${SecondaryLink} {
+      transform: translateY(0);
+    }
   }
 `;
 
